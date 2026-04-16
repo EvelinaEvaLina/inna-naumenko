@@ -271,7 +271,7 @@
       overflow: hidden;
       transition: max-height .45s ease;
     }
-    .acc-item.open .acc-body { max-height: 500px; }
+    .acc-item.open .acc-body { max-height: 900px; }
     .acc-body-inner { padding: 0 1.4rem 1.4rem; color: var(--text-light); }
 
     /* ===== SURVEY CHECKBOXES (Step 4) ===== */
@@ -630,10 +630,116 @@
       color: var(--teal);
     }
 
+    /* ===== TOUCH ===== */
+    * { -webkit-tap-highlight-color: transparent; }
+    button { touch-action: manipulation; }
+    .question-item, .tap-card, .survey-item, .acc-header,
+    .path-node, .bridge-btn, .path-choice-card,
+    .social-btn, .btn-primary, .btn-secondary, .scroll-hint {
+      touch-action: manipulation;
+    }
+
+    /* Active states for touch (mobile has no :hover) */
+    .question-item:active { border-left-color: var(--teal); background: var(--mint); }
+    .tap-card:active { border-color: var(--teal); background: var(--mint); }
+    .survey-item:active { border-color: var(--teal-light); }
+    .path-node:active { background: var(--teal); color: #fff; }
+    .bridge-btn:active { background: var(--mint); border-color: var(--teal); }
+
+    /* ===== TABLET 768px ===== */
+    @media (max-width: 768px) {
+      body { font-size: 16px; }
+      section { padding: 2.5rem 0; }
+      .hero { padding: 3rem 0 2.5rem; }
+      .cta-buttons { flex-direction: column; }
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        text-align: center;
+        padding: 1.1rem 1.5rem;
+      }
+    }
+
+    /* ===== MOBILE 600px ===== */
     @media (max-width: 600px) {
-      .hero-inner { flex-direction: column-reverse; text-align: center; }
+      body { font-size: 15px; }
+      section { padding: 2rem 0; }
+
+      /* Hero */
+      .hero { padding: 2.5rem 0 2rem; }
+      .hero-inner {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 1.5rem;
+      }
       .hero-photo { flex: 0 0 auto; }
-      .tap-cards-grid { grid-template-columns: 1fr 1fr; }
+      .hero-photo img { width: 160px; height: 200px; }
+      .scroll-hint { display: block; margin: 1.2rem auto 0; max-width: 240px; text-align: center; }
+
+      /* Progress */
+      .progress-wrap { margin-bottom: 1.5rem; }
+
+      /* Questions */
+      .question-item { padding: .9rem 2.5rem .9rem 1rem; min-height: 52px; }
+      .q-check { font-size: 1.1rem; }
+
+      /* Tap cards — 1 col on small, 2 col on mid-mobile */
+      .tap-cards-grid { grid-template-columns: 1fr; gap: .75rem; }
+      .tap-card { display: flex; align-items: center; gap: .75rem; text-align: left; }
+      .tap-card .card-icon { font-size: 1.6rem; flex-shrink: 0; margin: 0; }
+      .tap-card.selected .card-reveal { padding-top: .4rem; }
+
+      /* Survey */
+      .survey-grid { grid-template-columns: 1fr; gap: .6rem; }
+      .survey-item { min-height: 52px; padding: .85rem 1rem; }
+
+      /* Accordion */
+      .acc-header { padding: 1rem 1.1rem; min-height: 52px; }
+      .acc-header h3 { font-size: 1rem; }
+      .acc-item.open .acc-body { max-height: 900px; }
+      .photo-row img { width: 140px; height: 170px; }
+
+      /* Path scheme */
+      .path-scheme { max-width: 100%; }
+      .path-node { padding: .85rem 1rem; font-size: .93rem; min-height: 48px; }
+
+      /* Bridge */
+      .bridge-options { grid-template-columns: 1fr; gap: .65rem; }
+      .bridge-btn { min-height: 52px; padding: .85rem 1rem; font-size: .92rem; }
+
+      /* Path choices */
+      .path-choices { grid-template-columns: 1fr; gap: .75rem; }
+      .path-choice-card { padding: 1.2rem 1rem; }
+      .path-choice-card .num { font-size: 1.6rem; }
+
+      /* Float photo */
+      .float-photo { float: none; width: 100%; max-width: 320px; display: block; margin: 1rem auto; }
+
+      /* Photo block */
+      .photo-block img { max-width: 100%; max-height: 320px; }
+
+      /* CTA buttons */
+      .cta-buttons { flex-direction: column; gap: .75rem; }
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        text-align: center;
+        padding: 1.1rem 1.5rem;
+        font-size: .97rem;
+      }
+
+      /* Social */
+      .social-buttons { flex-direction: column; align-items: center; gap: .75rem; }
+      .social-btn { width: 260px; justify-content: center; padding: 1rem 1.5rem; }
+
+      /* Final section photo */
+      .final-section img { width: 140px !important; height: 170px !important; }
+    }
+
+    /* ===== VERY SMALL 375px ===== */
+    @media (max-width: 375px) {
+      .container { padding: 0 1rem; }
+      h2 { font-size: 1.25rem; }
+      .hero-photo img { width: 130px; height: 165px; }
+      .honest-question { padding: 1.1rem 1.2rem; }
     }
   </style>
 </head>
