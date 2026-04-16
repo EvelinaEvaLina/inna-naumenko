@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ты столько лет работаешь с людьми… | Инна Науменко</title>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #F0EBE0;
+      --beige:    #D9CEBA;
+      --tan:      #B8A080;
+      --brown:    #8B6A40;
+      --teal-dark:#2A6B63;
+      --teal:     #3D8C84;
+      --teal-mid: #5AADA4;
+      --teal-light:#8ECEC8;
+      --mint:     #C2E8E4;
+      --white:    #FAFAF8;
+      --text:     #2C2C2C;
+      --text-light:#5A5A5A;
+      --shadow:   rgba(61,140,132,0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 17px;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1 { font-size: clamp(1.8rem, 5vw, 3rem); line-height: 1.2; color: var(--teal-dark); }
+    h2 { font-size: clamp(1.3rem, 3.5vw, 2rem); color: var(--teal-dark); margin-bottom: .5rem; }
+    h3 { font-size: 1.15rem; color: var(--brown); margin-bottom: .4rem; }
+    p  { margin-bottom: .9rem; }
+    strong { color: var(--teal-dark); }
+
+    /* ===== LAYOUT ===== */
+    .container { max-width: 780px; margin: 0 auto; padding: 0 1.25rem; }
+
+    section {
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--beige);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 50%, var(--teal-mid) 100%);
+      color: #fff;
+      padding: 4rem 0 3rem;
+      border-bottom: none;
+    }
+
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-text { flex: 1 1 300px; }
+    .hero-text h1 { color: #fff; margin-bottom: 1rem; }
+    .hero-text .subtitle {
+      font-size: 1.15rem;
+      color: var(--mint);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-photo {
+      flex: 0 0 260px;
+      text-align: center;
+    }
+
+    .hero-photo img {
+      width: 220px;
+      height: 280px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 50% 50% 40% 40%;
+      border: 4px solid var(--mint);
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+    }
+
+    .scroll-hint {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: .7rem 1.8rem;
+      background: rgba(255,255,255,.18);
+      border: 2px solid rgba(255,255,255,.5);
+      border-radius: 50px;
+      color: #fff;
+      font-size: .95rem;
+      cursor: pointer;
+      transition: background .3s;
+      text-decoration: none;
+    }
+    .scroll-hint:hover { background: rgba(255,255,255,.3); }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-wrap {
+      margin-bottom: 2rem;
+    }
+    .progress-label {
+      font-size: .85rem;
+      color: var(--teal);
+      font-weight: bold;
+      letter-spacing: .05em;
+      margin-bottom: .4rem;
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: var(--beige);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal-dark), var(--teal-light));
+      border-radius: 20px;
+      transition: width .8s ease;
+    }
+
+    /* ===== SECTION HEADER ===== */
+    .section-badge {
+      display: inline-block;
+      background: var(--teal);
+      color: #fff;
+      font-size: .8rem;
+      padding: .25rem .8rem;
+      border-radius: 20px;
+      margin-bottom: .6rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    /* ===== QUESTION CARDS (Step 1) ===== */
+    .question-list { list-style: none; margin-top: 1.5rem; }
+
+    .question-item {
+      background: var(--white);
+      border-left: 4px solid var(--beige);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: .75rem;
+      cursor: pointer;
+      transition: border-color .3s, box-shadow .3s, transform .2s;
+      position: relative;
+    }
+    .question-item:hover, .question-item.active {
+      border-left-color: var(--teal);
+      box-shadow: 0 4px 18px var(--shadow);
+      transform: translateX(4px);
+    }
+    .question-item.active { background: var(--mint); }
+    .question-item .q-num {
+      font-size: .8rem;
+      color: var(--tan);
+      font-weight: bold;
+      display: block;
+      margin-bottom: .2rem;
+    }
+    .q-check {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.3rem;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .question-item.active .q-check { opacity: 1; }
+
+    .honest-question {
+      background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+      color: #fff;
+      border-radius: 14px;
+      padding: 1.5rem 1.75rem;
+      margin-top: 1.5rem;
+    }
+    .honest-question p { color: #fff; margin-bottom: .4rem; }
+    .honest-question strong { color: var(--mint); }
+
+    /* ===== TAP CARDS (Step 2) ===== */
+    .tap-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .tap-card {
+      background: var(--white);
+      border: 2px solid var(--beige);
+      border-radius: 14px;
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: all .3s;
+      text-align: center;
+    }
+    .tap-card:hover { border-color: var(--teal-light); box-shadow: 0 4px 16px var(--shadow); }
+    .tap-card.selected {
+      background: var(--mint);
+      border-color: var(--teal);
+    }
+    .tap-card .card-icon { font-size: 2rem; margin-bottom: .5rem; display: block; }
+    .tap-card .card-title { font-weight: bold; color: var(--teal-dark); font-size: .95rem; }
+    .tap-card .card-reveal {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s ease, padding .3s;
+      font-size: .87rem;
+      color: var(--text-light);
+      font-style: italic;
+    }
+    .tap-card.selected .card-reveal {
+      max-height: 80px;
+      padding-top: .6rem;
+    }
+
+    .result-badge {
+      display: none;
+      background: var(--teal);
+      color: #fff;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin-top: 1.5rem;
+      font-size: .95rem;
+    }
+    .result-badge.show { display: block; }
+
+    /* ===== ACCORDION (Steps 6, 9) ===== */
+    .accordion { margin-top: 1.5rem; }
+
+    .acc-item {
+      background: var(--white);
+      border-radius: 12px;
+      margin-bottom: .75rem;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    }
+
+    .acc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 1.4rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background .3s;
+    }
+    .acc-header:hover { background: var(--mint); }
+    .acc-header h3 { margin: 0; color: var(--teal-dark); }
+    .acc-arrow {
+      font-size: 1.2rem;
+      color: var(--teal);
+      transition: transform .35s;
+      flex-shrink: 0;
+    }
+    .acc-item.open .acc-arrow { transform: rotate(180deg); }
+
+    .acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .45s ease;
+    }
+    .acc-item.open .acc-body { max-height: 500px; }
+    .acc-body-inner { padding: 0 1.4rem 1.4rem; color: var(--text-light); }
+
+    /* ===== SURVEY CHECKBOXES (Step 4) ===== */
+    .survey-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: .9rem;
+      margin-top: 1.2rem;
+    }
+
+    .survey-item {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      background: var(--white);
+      border: 2px solid var(--beige);
+      border-radius: 10px;
+      padding: .9rem 1rem;
+      cursor: pointer;
+      transition: all .3s;
+      font-size: .95rem;
+    }
+    .survey-item:hover { border-color: var(--teal-light); }
+    .survey-item.checked {
+      border-color: var(--teal);
+      background: var(--mint);
+    }
+    .survey-item .check-box {
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--teal-light);
+      border-radius: 5px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .3s, border-color .3s;
+    }
+    .survey-item.checked .check-box {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: #fff;
+    }
+
+    .survey-feedback {
+      display: none;
+      background: var(--teal-dark);
+      color: #fff;
+      border-radius: 12px;
+      padding: 1rem 1.4rem;
+      margin-top: 1.2rem;
+      font-style: italic;
+    }
+    .survey-feedback.show { display: block; }
+
+    /* ===== CLICKABLE SCHEME (Step 8) ===== */
+    .path-scheme {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      margin: 1.5rem auto;
+      max-width: 340px;
+    }
+
+    .path-node {
+      width: 100%;
+      background: var(--white);
+      border: 2px solid var(--beige);
+      border-radius: 50px;
+      padding: .75rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--teal-dark);
+      transition: all .3s;
+      position: relative;
+    }
+    .path-node:hover, .path-node.active {
+      background: var(--teal);
+      color: #fff;
+      border-color: var(--teal);
+      box-shadow: 0 4px 18px var(--shadow);
+    }
+
+    .path-arrow {
+      font-size: 1.4rem;
+      color: var(--teal-light);
+      line-height: 1.5;
+    }
+
+    .path-tooltip {
+      display: none;
+      background: var(--cream);
+      border-left: 3px solid var(--teal);
+      border-radius: 8px;
+      padding: .85rem 1.2rem;
+      font-size: .9rem;
+      color: var(--text-light);
+      font-style: italic;
+      width: 100%;
+      margin-top: .4rem;
+    }
+    .path-tooltip.show { display: block; }
+
+    /* ===== BRIDGE (Step 9.5) ===== */
+    .bridge-question { font-size: 1.05rem; font-weight: bold; color: var(--teal-dark); margin-bottom: 1rem; }
+
+    .bridge-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: .8rem;
+    }
+
+    .bridge-btn {
+      background: var(--white);
+      border: 2px solid var(--beige);
+      border-radius: 12px;
+      padding: .9rem 1rem;
+      cursor: pointer;
+      font-size: .93rem;
+      color: var(--text);
+      text-align: left;
+      transition: all .3s;
+      line-height: 1.4;
+    }
+    .bridge-btn:before { content: '☐ '; color: var(--teal-light); }
+    .bridge-btn:hover { border-color: var(--teal-light); background: var(--cream); }
+    .bridge-btn.chosen { background: var(--mint); border-color: var(--teal); }
+    .bridge-btn.chosen:before { content: '☑ '; color: var(--teal); }
+
+    .bridge-result {
+      display: none;
+      background: linear-gradient(135deg, var(--teal-dark), var(--teal-mid));
+      color: #fff;
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      font-style: italic;
+      font-size: 1rem;
+    }
+    .bridge-result.show { display: block; }
+
+    /* ===== PATH CHOICE (Step 10) ===== */
+    .path-choices {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .path-choice-card {
+      background: var(--white);
+      border: 2px solid var(--beige);
+      border-radius: 14px;
+      padding: 1.5rem 1.2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all .35s;
+    }
+    .path-choice-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px var(--shadow); }
+    .path-choice-card.picked {
+      background: var(--mint);
+      border-color: var(--teal);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+    .path-choice-card .num { font-size: 2rem; margin-bottom: .4rem; }
+    .path-choice-card h3 { color: var(--teal-dark); margin-bottom: .4rem; }
+    .path-choice-card p { font-size: .88rem; color: var(--text-light); margin: 0; }
+
+    /* ===== PHOTO INSERTS ===== */
+    .photo-block {
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+    .photo-block img {
+      max-width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.15);
+    }
+
+    .photo-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+    .photo-row img {
+      width: 200px;
+      height: 240px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.15);
+    }
+
+    .float-photo {
+      float: right;
+      margin: 0 0 1rem 1.5rem;
+      width: 200px;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.15);
+    }
+    @media (max-width: 560px) {
+      .float-photo { float: none; width: 100%; margin: 1rem 0; }
+    }
+
+    /* ===== QUOTE BLOCK ===== */
+    .quote-block {
+      border-left: 4px solid var(--teal);
+      background: var(--white);
+      border-radius: 0 14px 14px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--teal-dark);
+    }
+
+    /* ===== FINAL BLOCK ===== */
+    .final-section {
+      background: linear-gradient(160deg, var(--teal-dark) 0%, var(--teal) 60%, var(--teal-mid) 100%);
+      color: #fff;
+      border-bottom: none;
+      padding: 4rem 0;
+    }
+    .final-section h2 { color: #fff; }
+    .final-section p { color: rgba(255,255,255,.88); }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: #fff;
+      color: var(--teal-dark);
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all .3s;
+      box-shadow: 0 4px 18px rgba(0,0,0,.2);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.3); }
+
+    .btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,.7);
+      transition: all .3s;
+      cursor: pointer;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.15); }
+
+    /* ===== SOCIAL BUTTONS ===== */
+    .social-section {
+      background: var(--teal-dark);
+      padding: 2.5rem 0;
+      text-align: center;
+      border-bottom: none;
+    }
+
+    .social-title {
+      color: var(--mint);
+      font-size: 1rem;
+      margin-bottom: 1.25rem;
+      letter-spacing: .04em;
+    }
+
+    .social-buttons {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+      padding: .85rem 1.75rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: all .3s;
+      box-shadow: 0 4px 14px rgba(0,0,0,.25);
+    }
+
+    .social-btn-vk {
+      background: #0077FF;
+      color: #fff;
+    }
+    .social-btn-vk:hover { background: #0060CC; transform: translateY(-3px); }
+
+    .social-btn-tg {
+      background: #229ED9;
+      color: #fff;
+    }
+    .social-btn-tg:hover { background: #1A7AAD; transform: translateY(-3px); }
+
+    .social-btn svg { width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--teal-dark);
+      color: rgba(255,255,255,.5);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: .82rem;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+
+    /* ===== MISC ===== */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--beige);
+      margin: 1.75rem 0;
+    }
+
+    .highlight-box {
+      background: var(--mint);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.25rem 0;
+    }
+
+    ul.styled-list {
+      list-style: none;
+      padding: 0;
+      margin: .75rem 0;
+    }
+    ul.styled-list li {
+      padding: .35rem 0 .35rem 1.5rem;
+      position: relative;
+    }
+    ul.styled-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+    }
+
+    @media (max-width: 600px) {
+      .hero-inner { flex-direction: column-reverse; text-align: center; }
+      .hero-photo { flex: 0 0 auto; }
+      .tap-cards-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Ты столько лет работаешь с людьми…</h1>
+        <p class="subtitle">но твоя жизнь всё ещё зависит от компании?</p>
+        <p style="color:rgba(255,255,255,.85); margin-bottom:0;">
+          Небольшой честный разговор в 10 шагов для женщин, которые чувствуют, что <strong style="color:#C2E8E4;">могут больше</strong>.
+        </p>
+        <a class="scroll-hint" href="#step1">Начать разговор ↓</a>
+      </div>
+      <div class="hero-photo">
+        <img src="photo_2026-04-10_22-22-57.jpg" alt="Инна Науменко" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STEP 1 ===== -->
+<section id="step1">
+  <div class="container">
+    <div class="progress-wrap">
+      <div class="progress-label">ШАГ 1 из 10</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:10%"></div></div>
+    </div>
+    <span class="section-badge">Честный вопрос</span>
+    <h2>Узнаёшь ли ты себя?</h2>
+    <p>Иногда один честный вопрос может изменить взгляд на свою жизнь. Ответь себе спокойно — без правильных и неправильных ответов. <em>Нажми на любой вопрос, если он тебе откликается.</em></p>
+
+    <ul class="question-list" id="q-list">
+      <li class="question-item" onclick="toggleQuestion(this)">
+        <span class="q-num">1.</span>
+        Бывало ли у тебя ощущение, что ты много работаешь, но всё равно зависишь от решений других людей?
+        <span class="q-check">✓</span>
+      </li>
+      <li class="question-item" onclick="toggleQuestion(this)">
+        <span class="q-num">2.</span>
+        Случалось ли ловить себя на мысли: «Я столько лет работаю с людьми… но моя жизнь почти не меняется?»
+        <span class="q-check">✓</span>
+      </li>
+      <li class="question-item" onclick="toggleQuestion(this)">
+        <span class="q-num">3.</span>
+        Есть ли внутри чувство, что твой опыт можно было бы использовать <strong>намного шире</strong>?
+        <span class="q-check">✓</span>
+      </li>
+      <li class="question-item" onclick="toggleQuestion(this)">
+        <span class="q-num">4.</span>
+        Бывает ли обидно, что люди ценят твой профессионализм, но твой доход всё равно ограничен системой?
+        <span class="q-check">✓</span>
+      </li>
+    </ul>
+
+    <div class="honest-question">
+      <p>И самый честный вопрос.</p>
+      <p>Если через <strong>5 лет</strong> всё останется так же:<br>
+      тот же график · тот же доход · те же ограничения</p>
+      <p style="margin:0;"><strong>будешь ли ты чувствовать, что использовала свой потенциал?</strong></p>
+    </div>
+
+    <p style="margin-top:1.25rem;">Если хотя бы один вопрос откликнулся — <strong>этот разговор для тебя</strong>.</p>
+  </div>
+</section>
+
+<!-- ===== STEP 2 ===== -->
+<section id="step2">
+  <div class="container">
+    <div class="progress-wrap">
+      <div class="progress-label">ШАГ 2 из 10</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:20%"></div></div>
+    </div>
+    <span class="section-badge">Узнаёшь ли ты себя?</span>
+    <h2>Какие качества уже есть в тебе?</h2>
+    <p>Нажми на карточку, если это про тебя:</p>
+
+    <div class="tap-cards-grid" id="tap-cards">
+      <div class="tap-card" onclick="toggleCard(this, 'cards-result')">
+        <span class="card-icon">🤝</span>
+        <div class="card-title">Люди часто советуются со мной</div>
+        <div class="card-reveal">Это один из ключевых навыков предпринимателя — умение вызывать доверие.</div>
+      </div>
+      <div class="tap-card" onclick="toggleCard(this, 'cards-result')">
+        <span class="card-icon">💬</span>
+        <div class="card-title">Мне легко находить общий язык с людьми</div>
+        <div class="card-reveal">Коммуникабельность — основа любого успешного дела. Ты уже умеешь это.</div>
+      </div>
+      <div class="tap-card" onclick="toggleCard(this, 'cards-result')">
+        <span class="card-icon">💡</span>
+        <div class="card-title">Я умею объяснять сложные вещи просто</div>
+        <div class="card-reveal">Это редкий и ценный дар — именно такие люди становятся наставниками.</div>
+      </div>
+      <div class="tap-card" onclick="toggleCard(this, 'cards-result')">
+        <span class="card-icon">🌿</span>
+        <div class="card-title">Мне нравится помогать людям разобраться</div>
+        <div class="card-reveal">Желание помочь — это не слабость, это магнит, который притягивает партнёров.</div>
+      </div>
+      <div class="tap-card" onclick="toggleCard(this, 'cards-result')">
+        <span class="card-icon">✨</span>
+        <div class="card-title">Я чувствую, что мой потенциал больше моей работы</div>
+        <div class="card-reveal">Это интуиция. И она почти никогда не ошибается.</div>
+      </div>
+    </div>
+
+    <div class="result-badge" id="cards-result">
+      У тебя уже есть сильная база — <strong>умение выстраивать доверие</strong>. Именно вокруг этого навыка строится устойчивый бизнес.
+    </div>
+  </div>
+</section>
+
+<!-- ===== STEP 3 ===== -->
+<section id="step3">
+  <div class="container">
+    <div class="progress-wrap">
+      <div class="progress-label">ШАГ 3 из 10</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:30%"></div></div>
+    </div>
+    <span class="section-badge">Небольшое наблюдение</span>
+    <h2>Ты не одна с таким ощущением</h2>
+
+    <img class="float-photo" src="photo_2026-04-10_22-30-16.jpg" alt="Инна Науменко" />
+
+    <p>За последние годы я разговаривала со многими женщинами. И почти каждая говорит похожие вещи:</p>
+
+    <ul class="styled-list">
+      <li>«Мне нравится работать с людьми»</li>
+      <li>«Мне легко находить подход»</li>
+      <li>«Я люблю помогать другим»</li>
+    </ul>
+
+    <p>Но почти всегда звучит ещё одна фраза:</p>
+
+    <div class="quote-block">«Я чувствую, что могу больше.»</div>
+
+    <p>И очень часто это правда.</p>
+  </div>
+</section>
+
+<!-- ===== STEP 4 ===== -->
+<section id="step4">
+  <div class="container">
+    <span class="section-badge">А как у вас?</span>
+    <h2>Что чаще всего вызывает напряжение в работе?</h2>
+    <p>Отметь то, что откликается:</p>
+
+    <div class="survey-grid" id="survey4">
+      <div class="survey-item" onclick="toggleSurvey(this, 'survey4-result')">
+        <div class="check-box">✓</div>
+        <span>Жёсткий график</span>
+      </div>
+      <div class="survey-item" onclick="toggleSurvey(this, 'survey4-result')">
+        <div class="check-box">✓</div>
+        <span>Доход ограничен системой</span>
+      </div>
+      <div class="survey-item" onclick="toggleSurvey(this, 'survey4-result')">
+        <div class="check-box">✓</div>
+        <span>Ощущение, что мой опыт используется не полностью</span>
+      </div>
+      <div class="survey-item" onclick="toggleSurvey(this, 'survey4-result')">
+        <div class="check-box">✓</div>
+        <span>Мало времени для себя и семьи</span>
+      </div>
+    </div>
+
+    <div class="survey-feedback" id="survey4-result">
+      Очень многие женщины отмечают именно эти пункты. И именно поэтому начинают искать <strong>другой формат жизни</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- ===== STEP 5 ===== -->
+<section id="step5">
+  <div class="container">
+    <div class="progress-wrap">
+      <div class="progress-label">ШАГ 5 из 10</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:50%"></div></div>
+    </div>
+    <span class="section-badge">После 40</span>
+    <h2>Многие начинают думать о другом</h2>
+
+    <p>После 40 многие женщины начинают думать не только о работе. А о <strong>свободе</strong>.</p>
+
+    <div class="highlight-box">
+      <p style="margin:0; font-weight:bold; color:var(--teal-dark);">Свободе времени. Свободе решений. Свободе жить так, как хочется.</p>
+    </div>
+
+    <p>Хочется самой решать:</p>
+    <ul class="styled-list">
+      <li>когда отдыхать</li>
+      <li>сколько работать</li>
+      <li>сколько времени уделять семье</li>
+      <li>на что направлять деньги</li>
+    </ul>
+
+    <p>Но если доход зависит только от работодателя — эти решения остаются ограниченными.</p>
+
+    <p>И тогда появляется вопрос:</p>
+    <div class="quote-block">«Можно ли создать что-то своё?»<br><em style="font-size:.9em;">Не резко. А постепенно.</em></div>
+  </div>
+</section>
+
+<!-- ===== STEP 6 ===== -->
+<section id="step6">
+  <div class="container">
+    <span class="section-badge">История Инны</span>
+    <h2>Почему я об этом говорю</h2>
+
+    <p>Меня зовут <strong>Инна</strong>. Сегодня я наставник и лидер в сетевой компании. Но так было не всегда.</p>
+    <p>Мой путь начался с очень сложного периода.</p>
+
+    <div class="accordion">
+      <div class="acc-item" id="acc-story">
+        <div class="acc-header" onclick="toggleAcc('acc-story')">
+          <h3>▼ Прочитать историю Инны</h3>
+          <span class="acc-arrow">⌄</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <div class="photo-row">
+              <img src="photo_2026-04-10_22-11-13.jpg" alt="Инна Науменко" />
+              <img src="photo_2026-04-10_22-13-18.jpg" alt="Инна Науменко" />
+            </div>
+            <p>11 лет назад жизнь резко вывела меня из зоны комфорта.</p>
+            <ul class="styled-list">
+              <li>Переезд в другую страну</li>
+              <li>Нет денег</li>
+              <li>Нет работы</li>
+              <li>Нет жилья</li>
+              <li>Нет документов</li>
+            </ul>
+            <p>Это был очень сложный период. Было страшно.</p>
+            <p>Но мы с мужем начали делать то, что могли. Нашли самую простую работу. Шаг за шагом начали выстраивать жизнь заново. Меняли профессии. Учились. Искали возможности.</p>
+            <p>И всё это время рядом со мной был сетевой бизнес. Но честно скажу — <em>я долго сомневалась</em>. Я не верила в «быстро и легко». Мне нужно было понять: <strong>есть ли здесь система и честный путь</strong>.</p>
+            <p>И только со временем я увидела: этот бизнес работает не потому, что он волшебный. Он работает потому, что основан на <strong>людях и доверии</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STEP 7 ===== -->
+<section id="step7">
+  <div class="container">
+    <div class="progress-wrap">
+      <div class="progress-label">ШАГ 7 из 10</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:70%"></div></div>
+    </div>
+    <span class="section-badge">Микрорешения</span>
+    <h2>Давай попробуем маленький эксперимент</h2>
+    <p>Ответь себе на несколько вопросов.</p>
+
+    <h3 style="margin-top:1.5rem;">Если у тебя появится дополнительный доход, что для тебя важнее?</h3>
+    <div class="survey-grid" id="survey7a">
+      <div class="survey-item" onclick="toggleSurvey(this, 'survey7-result')">
+        <div class="check-box">✓</div><span>Финансовая подушка</span>
+      </div>
+      <div class="survey-item" onclick="toggleSurvey(this, 'survey7-result')">
+        <div class="check-box">✓</div><span>Больше свободы во времени</span>
+      </div>
+      <div class="survey-item" onclick="toggleSurvey(this, 'survey7-result')">
+        <div class="check-box">✓</div><span>Помощь семье</span>
+      </div>
+      <div class="survey-item" onclick="toggleSurvey(this, 'survey7-result')">
+        <div class="check-box">✓</div><span>Уверенность в будущем</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top:1.5rem;">Какой формат развития тебе ближе?</h3>
+    <div class="survey-grid" id="survey7b">
+      <div class="survey-item" onclick="toggleSurvey(this, 'survey7-result')">
+        <div class="check-box">✓</div><span>Идти постепенно без резких перемен</span>
+      </div>
+      <div class="survey-item" onclick="toggleSurvey(this, 'survey7-result')">
+        <div class="check-box">✓</div><span>Сначала разобраться, потом принимать решение</span>
+      </div>
+      <div class="survey-item" onclick="toggleSurvey(this, 'survey7-result')">
+        <div class="check-box">✓</div><span>Пробовать новое параллельно с основной работой</span>
+      </div>
+    </div>
+
+    <div class="survey-feedback" id="survey7-result">
+      Очень часто именно такие ответы становятся <strong>началом нового этапа жизни</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- ===== STEP 8 ===== -->
+<section id="step8">
+  <div class="container">
+    <span class="section-badge">Как это работает</span>
+    <h2>Как формируется устойчивый бизнес</h2>
+    <p>Нажми на любой шаг пути, чтобы узнать подробнее:</p>
+
+    <div class="path-scheme">
+      <div class="path-node" onclick="togglePath(this, 'tip1')">Опыт общения с людьми</div>
+      <div class="path-tooltip" id="tip1">Годы работы с людьми — это не просто стаж. Это капитал доверия, который уже есть у тебя.</div>
+      <div class="path-arrow">↓</div>
+      <div class="path-node" onclick="togglePath(this, 'tip2')">Доверие</div>
+      <div class="path-tooltip" id="tip2">Когда люди доверяют вам, они возвращаются и рекомендуют другим. Это основа любого устойчивого дела.</div>
+      <div class="path-arrow">↓</div>
+      <div class="path-node" onclick="togglePath(this, 'tip3')">Рекомендации</div>
+      <div class="path-tooltip" id="tip3">Рекомендация от знакомого человека работает в 10 раз лучше любой рекламы. Это твой главный инструмент.</div>
+      <div class="path-arrow">↓</div>
+      <div class="path-node" onclick="togglePath(this, 'tip4')">Первые результаты</div>
+      <div class="path-tooltip" id="tip4">Первые небольшие результаты дают самое важное ощущение: «Я могу. Это работает». С этого всё начинается.</div>
+      <div class="path-arrow">↓</div>
+      <div class="path-node" onclick="togglePath(this, 'tip5')">Новые партнёры</div>
+      <div class="path-tooltip" id="tip5">Рядом появляются люди с похожими ценностями. Такое окружение помогает двигаться дальше и не останавливаться.</div>
+      <div class="path-arrow">↓</div>
+      <div class="path-node" onclick="togglePath(this, 'tip6')">Устойчивый доход</div>
+      <div class="path-tooltip" id="tip6">Не быстро, но настоящий. Тот доход, который не зависит от одного работодателя и одного решения.</div>
+    </div>
+
+    <p style="text-align:center; color:var(--text-light); font-style:italic;">Ничего не происходит резко. Но если двигаться спокойно и системно — этот путь становится реальным.</p>
+  </div>
+</section>
+
+<!-- ===== STEP 9 ===== -->
+<section id="step9">
+  <div class="container">
+    <div class="progress-wrap">
+      <div class="progress-label">ШАГ 9 из 10</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:90%"></div></div>
+    </div>
+    <span class="section-badge">Что реально может измениться</span>
+    <h2>Честно о результатах</h2>
+    <p>Этот путь <strong>не про мгновенные результаты</strong>. Но со временем он способен изменить несколько важных вещей. Нажми, чтобы узнать подробнее:</p>
+
+    <div class="accordion">
+      <div class="acc-item" id="acc1">
+        <div class="acc-header" onclick="toggleAcc('acc1')">
+          <h3>💰 Дополнительный источник дохода</h3>
+          <span class="acc-arrow">⌄</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Сначала небольшой. Но он даёт очень важное ощущение: <strong>деньги могут приходить не только из одного источника</strong>. Это меняет всё отношение к жизни.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" id="acc2">
+        <div class="acc-header" onclick="toggleAcc('acc2')">
+          <h3>🕐 Больше свободы во времени</h3>
+          <span class="acc-arrow">⌄</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Рабочая неделя постепенно становится гибче. Со временем становится проще планировать: когда работать, когда отдыхать, когда уделить время семье.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" id="acc3">
+        <div class="acc-header" onclick="toggleAcc('acc3')">
+          <h3>🌟 Чувство собственного дела</h3>
+          <span class="acc-arrow">⌄</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Даже небольшие результаты меняют отношение к себе. Появляется понимание: <strong>это то, что я строю сама</strong>. Это другое ощущение внутри.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" id="acc4">
+        <div class="acc-header" onclick="toggleAcc('acc4')">
+          <h3>👥 Новое окружение</h3>
+          <span class="acc-arrow">⌄</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Рядом оказываются люди, которые тоже развиваются. Такое окружение поддерживает и помогает двигаться дальше — это один из самых ценных ресурсов.
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" id="acc5">
+        <div class="acc-header" onclick="toggleAcc('acc5')">
+          <h3>💪 Уверенность в своих возможностях</h3>
+          <span class="acc-arrow">⌄</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            Через некоторое время многие женщины говорят: <em>«Я даже не думала, что смогу.»</em> Это, пожалуй, самое важное изменение из всех.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STEP 9.5 ===== -->
+<section id="step9-5">
+  <div class="container">
+    <span class="section-badge">Мост будущего</span>
+    <h2>Представь на минуту</h2>
+
+    <div class="photo-block">
+      <img src="photo_2026-04-10_22-40-47.jpg" alt="Инна Науменко" style="max-width:360px; max-height:420px; object-fit:cover; object-position:top;" />
+    </div>
+
+    <p>Представь, что проходит год. Ты всё так же работаешь с людьми. Но у тебя есть ещё одно направление, которое ты постепенно развиваешь.</p>
+    <p>И в жизни становится больше:</p>
+    <ul class="styled-list">
+      <li>уверенности</li>
+      <li>возможностей</li>
+      <li>финансовой опоры</li>
+      <li>свободы распоряжаться временем</li>
+    </ul>
+
+    <p>И самое главное — ты начинаешь чувствовать, что <strong>сама влияешь на свою жизнь гораздо больше</strong>.</p>
+
+    <hr class="divider" />
+
+    <p class="bridge-question">Что изменилось бы в твоей жизни, если бы появился дополнительный доход?</p>
+
+    <div class="bridge-options" id="bridge-opts">
+      <button class="bridge-btn" onclick="chooseBridge(this)">Больше времени с семьёй</button>
+      <button class="bridge-btn" onclick="chooseBridge(this)">Меньше финансового напряжения</button>
+      <button class="bridge-btn" onclick="chooseBridge(this)">Уверенность в будущем</button>
+      <button class="bridge-btn" onclick="chooseBridge(this)">Возможность путешествовать</button>
+    </div>
+
+    <div class="bridge-result" id="bridge-result">
+      Именно ради этих изменений многие начинают своё дело. <strong>И начинают именно так — с одного шага.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STEP 10 ===== -->
+<section id="step10">
+  <div class="container">
+    <div class="progress-wrap">
+      <div class="progress-label">ШАГ 10 из 10</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+    </div>
+    <span class="section-badge">Твой путь</span>
+    <h2>Какой путь тебе ближе?</h2>
+    <p>Представь, что ты решила попробовать новое направление. Как тебе комфортнее двигаться?</p>
+
+    <div class="path-choices">
+      <div class="path-choice-card" onclick="pickPath(this)">
+        <div class="num">1️⃣</div>
+        <h3>Осторожный путь</h3>
+        <p>Разобраться и задать вопросы. Без спешки, в своём темпе.</p>
+      </div>
+      <div class="path-choice-card" onclick="pickPath(this)">
+        <div class="num">2️⃣</div>
+        <h3>Постепенный путь</h3>
+        <p>Начать с нескольких часов в неделю, совмещая с основной работой.</p>
+      </div>
+      <div class="path-choice-card" onclick="pickPath(this)">
+        <div class="num">3️⃣</div>
+        <h3>Активный путь</h3>
+        <p>Быстрее освоить систему и активно развивать направление.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:1.5rem; text-align:center; font-style:italic; color:var(--text-light);">Любой путь возможен. Главное — идти <strong>в своём темпе</strong>.</p>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final-section">
+  <div class="container">
+    <span class="section-badge" style="background:rgba(255,255,255,.25);">Следующий шаг</span>
+    <h2>Иногда достаточно одного разговора</h2>
+    <p>…чтобы увидеть возможности, которые раньше были незаметны.</p>
+    <p>Этот разговор <strong style="color:var(--mint);">ни к чему тебя не обязывает</strong>. Ты не обязана менять работу, принимать решение или начинать прямо сейчас.</p>
+
+    <hr style="border:none; border-top:1px solid rgba(255,255,255,.2); margin:1.5rem 0;" />
+
+    <p>Напиши мне сообщение <strong style="color:var(--mint);">«РАЗОБРАТЬСЯ»</strong> — и мы спокойно поговорим.</p>
+    <p>Или напиши <strong style="color:var(--mint);">«ИНТЕРЕСНО»</strong> — и я пришлю приглашение на ближайшую встречу, где покажу, как работает эта система.</p>
+
+    <div class="cta-buttons">
+      <a class="btn-primary" href="https://t.me/inessnaum" target="_blank" rel="noopener">
+        Написать «РАЗОБРАТЬСЯ»
+      </a>
+      <a class="btn-secondary" href="https://t.me/inessnaum" target="_blank" rel="noopener">
+        Написать «ИНТЕРЕСНО»
+      </a>
+    </div>
+
+    <div style="text-align:center; margin-top:2rem;">
+      <img src="photo_2026-04-10_22-41-04.jpg" alt="Инна Науменко"
+           style="width:180px; height:220px; object-fit:cover; object-position:top;
+                  border-radius:50% 50% 40% 40%; border:3px solid rgba(255,255,255,.4);
+                  box-shadow:0 8px 30px rgba(0,0,0,.3);" />
+    </div>
+
+    <div class="quote-block" style="background:rgba(255,255,255,.1); border-left-color:var(--mint); margin-top:2rem;">
+      <span style="color:var(--mint);">«Я даже не думала, что мой опыт можно применить именно так.»</span>
+      <br><span style="font-size:.88rem; color:rgba(255,255,255,.7);">— слова многих женщин после первого разговора</span>
+    </div>
+
+    <p style="text-align:center; margin-top:2rem; color:rgba(255,255,255,.7); font-style:italic;">Иногда всё начинается с одного шага</p>
+  </div>
+</section>
+
+<!-- ===== SOCIAL BUTTONS ===== -->
+<section class="social-section">
+  <div class="container">
+    <p class="social-title">Подписывайся и оставайся на связи</p>
+    <div class="social-buttons">
+
+      <!-- VK -->
+      <a class="social-btn social-btn-vk" href="https://vk.com/inesnaum" target="_blank" rel="noopener" aria-label="ВКонтакте">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14C20.67 22 22 20.67 22 15.07V8.93C22 3.33 20.67 2 15.07 2zm3.08 13.25h-1.64c-.62 0-.81-.49-1.92-1.62-1-.95-1.43-1.08-1.67-1.08-.27 0-.35.08-.35.45v1.48c0 .32-.1.51-1 .51-1.47 0-3.1-.89-4.25-2.55-1.73-2.43-2.2-4.24-2.2-4.62 0-.24.08-.46.45-.46h1.64c.34 0 .46.15.59.52.65 1.87 1.73 3.51 2.17 3.51.17 0 .24-.08.24-.51V8.63c-.05-.9-.52-1-.52-1.31 0-.15.12-.31.32-.31h2.58c.27 0 .37.14.37.46v2.49c0 .27.12.37.2.37.17 0 .31-.1.62-.41 1-.11 2.03-2.46 2.03-2.46.11-.24.32-.46.65-.46h1.64c.49 0 .6.25.49.57-.21.97-2.25 3.84-2.25 3.84-.18.29-.24.42 0 .74.17.24.74.74 1.12 1.19.69.79 1.22 1.46 1.36 1.92.15.46-.08.69-.55.69z"/>
+        </svg>
+        ВКонтакте
+      </a>
+
+      <!-- Telegram -->
+      <a class="social-btn social-btn-tg" href="https://t.me/inessnaum" target="_blank" rel="noopener" aria-label="Telegram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+        </svg>
+        Telegram
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© 2025 Инна Науменко · Наставник и лидер · Все права защищены</p>
+  </div>
+</footer>
+
+<script>
+  /* ===== QUESTION TOGGLE ===== */
+  function toggleQuestion(el) {
+    el.classList.toggle('active');
+  }
+
+  /* ===== TAP CARDS ===== */
+  function toggleCard(el, resultId) {
+    el.classList.toggle('selected');
+    const selected = document.querySelectorAll('#tap-cards .tap-card.selected').length;
+    const result = document.getElementById(resultId);
+    if (selected >= 2) {
+      result.classList.add('show');
+    } else {
+      result.classList.remove('show');
+    }
+  }
+
+  /* ===== ACCORDION ===== */
+  function toggleAcc(id) {
+    const item = document.getElementById(id);
+    item.classList.toggle('open');
+  }
+
+  /* ===== SURVEY CHECKBOXES ===== */
+  function toggleSurvey(el, resultId) {
+    el.classList.toggle('checked');
+    const parent = el.parentElement;
+    const checked = parent.querySelectorAll('.survey-item.checked').length;
+    const result = document.getElementById(resultId);
+    if (checked >= 1) {
+      result.classList.add('show');
+    } else {
+      result.classList.remove('show');
+    }
+  }
+
+  /* ===== PATH NODES ===== */
+  function togglePath(el, tipId) {
+    // Hide all other tips and deactivate nodes
+    document.querySelectorAll('.path-tooltip').forEach(t => {
+      if (t.id !== tipId) t.classList.remove('show');
+    });
+    document.querySelectorAll('.path-node').forEach(n => {
+      if (n !== el) n.classList.remove('active');
+    });
+    el.classList.toggle('active');
+    const tip = document.getElementById(tipId);
+    tip.classList.toggle('show');
+  }
+
+  /* ===== BRIDGE BUTTONS ===== */
+  function chooseBridge(el) {
+    el.classList.toggle('chosen');
+    const chosen = document.querySelectorAll('#bridge-opts .bridge-btn.chosen').length;
+    const result = document.getElementById('bridge-result');
+    result.classList.toggle('show', chosen >= 1);
+  }
+
+  /* ===== PATH CHOICE CARDS ===== */
+  function pickPath(el) {
+    document.querySelectorAll('.path-choice-card').forEach(c => c.classList.remove('picked'));
+    el.classList.add('picked');
+  }
+</script>
+
+</body>
+</html>
